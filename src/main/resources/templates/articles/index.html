@@ -5,10 +5,8 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        header
-        <hr>
-    </header>
+    <!-- /templates/header.html에 있는 header로 대체-->
+    <header th:replace="header :: header"></header>
 
     <main>
         <form>
@@ -54,10 +52,7 @@
         </nav>
     </main>
 
-    <footer>
-        <hr>
-        footer
-    </footer>
+    <footer th:replace="footer :: footer"></footer>
 
 </body>
 </html>
