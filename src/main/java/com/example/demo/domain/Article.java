@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -46,6 +48,11 @@ public class Article {
     @Exclude
     private Set<ArticleComment> articleComments =new LinkedHashSet<>();
 
+    @Setter
+    @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
+    private UserAccount userAccount;
+
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
     @CreatedBy @Column(nullable = false) private String createdBy;
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
@@ -56,10 +63,12 @@ public class Article {
     }
 
     public Article(){}
-    public Article(String title, String content, String category) {
+
+    public Article(String title, String content, String category, UserAccount userAccount) {
         this.title = title;
         this.content = content;
         this.category = category;
+        this.userAccount = userAccount;
     }
 
     @Override
