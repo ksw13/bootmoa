@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -42,11 +43,17 @@ public class ArticleComment {
     @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
     @LastModifiedBy @Column(nullable = false) private String modifiedBy;
 
+    @Setter
+    @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
+    private UserAccount userAccount;
+
     public ArticleComment() {}
 
-    public ArticleComment(Article article, String content) {
+    public ArticleComment(Article article, String content, UserAccount userAccount) {
         this.article = article;
         this.content = content;
+        this.userAccount = userAccount;
     }
 
     @Override
