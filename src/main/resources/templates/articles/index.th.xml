@@ -15,5 +15,25 @@
         </attr>
     </attr>
 
+    <attr sel="#pagination">
+        <attr sel="li[0]/a"
+              th:text="'previous'"
+              th:href="@{/articles(page=${articles.number - 1})}"
+              th:class="'page-link' + (${articles.number} <= 0 ? ' disable': '') "
+        />
+        <attr sel="li[1]" th:class="page-item" th:each="paginationNum : ${paginationNumber}">
+            <attr sel="a"
+                th:text="${paginationNum + 1}"
+                th:href="@{/articles(page=${paginationNum})}"
+                th:class="'page-link' + (${articles.number} == ${paginationNum} ? ' disable': '') "
+            />
+        </attr>
+        <attr sel="li[2]/a"
+              th:text="'next'"
+              th:href="@{/articles(page=${articles.number +1})}"
+              th:class="'page-link' + (${articles.number} >= ${articles.totalPages -1}  ? ' disable': '') "
+        />
+    </attr>
+
 
 </thlogic>
