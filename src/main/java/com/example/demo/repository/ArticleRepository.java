@@ -13,7 +13,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByTitleContaining(String keyword, Pageable pageable);
     Page<Article> findByContentContaining(String keyword, Pageable pageable);
-    Page<Article> findByCategoryContaining(String keyword, Pageable pageable);
+    Page<Article> findByCategory(String keyword, Pageable pageable);
 
 
 }

@@ -3,4 +3,17 @@
     <!-- index.html에서 id=="header"를 찾은 다음, /templates/header의 header요소로 대체 -->
     <attr sel="#header" th:replace="header :: header"/>
     <attr sel="#footer" th:replace="footer :: footer"/>
+
+    <attr sel="#article-table">
+        <!-- all-but-first는 <tr>첫번째만 남기고 나머지 다 삭제-->
+        <attr sel="tbody" th:remove="all-but-first">
+            <!-- articles는 modelmap으로부터 넘겨받은 값 -->
+            <attr sel="tr[0]" th:each="article : ${articles}">
+                <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/'+ ${article.id}}"/>
+                <attr sel="td.category" th:text="${article.category}"/>
+            </attr>
+        </attr>
+    </attr>
+
+
 </thlogic>
