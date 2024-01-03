@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.domain.type.SearchType;
 import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleWithCommentDto;
+import com.example.demo.dto.UserAccountDto;
+import com.example.demo.dto.request.ArticleRequest;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.PaginationService;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,6 +43,7 @@ public class ArticleController {
                 articles.getTotalPages());
         map.addAttribute("articles", articles);
         map.addAttribute("paginationNumber", paginationNumber);
+        map.addAttribute("searchTypes", SearchType.values());
         return "articles/index";
     }
 
@@ -50,5 +54,17 @@ public class ArticleController {
         map.addAttribute("articleComments", article.getArticleCommentDtos());
 
         return "articles/detail";
+    }
+
+    @GetMapping("/form")
+    public String articleForm(){
+        return "articles/form";
+    }
+
+    @PostMapping("/form")
+    public String postNewArticle(ArticleRequest articleRequest){
+        articleService.saveArticle(articleRequest.toDto(new UserAccountDto("swkang","1234")));
+
+        return "redirect:/articles";
     }
 }

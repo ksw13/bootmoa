@@ -53,10 +53,10 @@ public class Article {
     @ManyToOne(optional = false)
     private UserAccount userAccount;
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
-    @CreatedBy @Column(nullable = false) private String createdBy;
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
-    @LastModifiedBy @Column(nullable = false) private String modifiedBy;
+    @CreatedDate private LocalDateTime createdAt;
+    @CreatedBy private String createdBy;
+    @LastModifiedDate private LocalDateTime modifiedAt;
+    @LastModifiedBy private String modifiedBy;
 
     public void setArticleComments(Set<ArticleComment> articleComments) {
         this.articleComments = articleComments;
