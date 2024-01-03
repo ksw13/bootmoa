@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
+
     // Page 인터페이스안에 map이 이미 있음
     public Page<ArticleDto> searchArticles(SearchType searchType, String keyword, Pageable pageable){
         if(keyword == null || keyword.isBlank()){

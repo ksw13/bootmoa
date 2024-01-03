@@ -21,6 +21,13 @@ public class ArticleDto {
         this.userAccountDto = userAccountDto;
     }
 
+    public ArticleDto(String title, String content, String category, UserAccountDto userAccountDto) {
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.userAccountDto = userAccountDto;
+    }
+
     public static ArticleDto from(Article entity){
         return new ArticleDto(
                 entity.getId(),
