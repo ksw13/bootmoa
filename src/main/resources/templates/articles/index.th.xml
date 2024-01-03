@@ -17,6 +17,19 @@
         />
     </attr>
 
+    <attr sel="#badge">
+        <attr sel="#back/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=백엔드'" />
+        <attr sel="#front/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=프론트엔드'" />
+        <attr sel="#android/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=안드로이드'" />
+        <attr sel="#ios/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=iOS'" />
+        <attr sel="#al/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=AL/ML'" />
+        <attr sel="#cloud/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=클라우드'" />
+        <attr sel="#data/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=데이터분석'" />
+        <attr sel="#start/a" th:href="'/articles?searchType=CATEGORY&amp;keyword=창업'" />
+
+
+    </attr>
+
     <attr sel="#article-table">
         <!-- all-but-first는 <tr>첫번째만 남기고 나머지 다 삭제-->
         <attr sel="tbody" th:remove="all-but-first">
