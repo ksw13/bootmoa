@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +24,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @ToString
@@ -32,6 +34,7 @@ import org.springframework.data.annotation.LastModifiedDate;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Article {
     @Id
@@ -53,10 +56,10 @@ public class Article {
     @ManyToOne(optional = false)
     private UserAccount userAccount;
 
-    @CreatedDate private LocalDateTime createdAt;
-    @CreatedBy private String createdBy;
-    @LastModifiedDate private LocalDateTime modifiedAt;
-    @LastModifiedBy private String modifiedBy;
+    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
+    @CreatedBy @Column(nullable = false) private String createdBy;
+    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
+    @LastModifiedBy @Column(nullable = false) private String modifiedBy;
 
     public void setArticleComments(Set<ArticleComment> articleComments) {
         this.articleComments = articleComments;
