@@ -1,6 +1,8 @@
 package com.example.demo.config;
 
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import com.example.demo.dto.UserAccountDto;
 import com.example.demo.dto.security.BootPrincipal;
 import com.example.demo.repository.UserAccountRepository;
@@ -25,14 +27,12 @@ public class SecurityConfig {
                 authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
                                         HttpMethod.GET,
-                                        "/articles"
+                                        "/articles",
+                                        "/login"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                         )
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .permitAll()
-                )
+                .formLogin(withDefaults())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/"))
                 .build();
