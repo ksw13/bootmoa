@@ -9,4 +9,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface ArticleCommentRepository extends JpaRepository<ArticleComment, Long> {
     Page<ArticleComment> findByContentContaining(String keyword, Pageable pageable);
+    void deleteByIdAndUserAccount_UserId(Long commentId, String userId);
 }
