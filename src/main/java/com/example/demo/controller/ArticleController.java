@@ -5,6 +5,7 @@ import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleWithCommentDto;
 import com.example.demo.dto.UserAccountDto;
 import com.example.demo.dto.request.ArticleRequest;
+import com.example.demo.dto.security.BootPrincipal;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.PaginationService;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,14 +58,20 @@ public class ArticleController {
         return "articles/detail";
     }
 
+    @PostMapping("/{articleId}/delete")
+    public String deleteArticle(@PathVariable Long articleId, @AuthenticationPrincipal BootPrincipal bootPrincipal){
+        articleService.deleteArticle(articleId, bootPrincipal.getUsername());
+        return "redirect:/articles/";
+    }
+
     @GetMapping("/form")
     public String articleForm(){
         return "articles/form";
     }
 
     @PostMapping("/form")
-    public String postNewArticle(ArticleRequest articleRequest){
-        articleService.saveArticle(articleRequest.toDto(new UserAccountDto("swkang","1234")));
+    public String postNewArticle(ArticleRequest articleRequest, @AuthenticationPrincipal BootPrincipal bootPrincipal){
+        articleService.saveArticle(articleRequest.toDto(bootPrincipal.toDto()));
 
         return "redirect:/articles";
     }

@@ -5,6 +5,7 @@ import com.example.demo.domain.type.SearchType;
 import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleWithCommentDto;
 import com.example.demo.repository.ArticleRepository;
+import com.example.demo.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class ArticleService {
+    private final UserAccountRepository userAccountRepository;
     private final ArticleRepository articleRepository;
 
 
@@ -58,7 +60,7 @@ public class ArticleService {
         }
     }
 
-    public void deleteArticle(long articleId){
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(long articleId, String userId){
+        articleRepository.deleteByIdAndUserAccount_UserId(articleId, userId);
     }
 }

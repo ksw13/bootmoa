@@ -15,5 +15,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByContentContaining(String keyword, Pageable pageable);
     Page<Article> findByCategory(String keyword, Pageable pageable);
 
-
+    void deleteByIdAndUserAccount_UserId(Long articleId, String userId);
 }
