@@ -12,6 +12,9 @@ public class ArticleRequest {
     private String content;
     private String category;
 
+    public ArticleRequest() {
+    }
+
     public ArticleRequest(String title, String content, String category) {
         this.title = title;
         this.content = content;

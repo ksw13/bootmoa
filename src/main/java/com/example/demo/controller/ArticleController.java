@@ -5,10 +5,14 @@ import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleWithCommentDto;
 import com.example.demo.dto.UserAccountDto;
 import com.example.demo.dto.request.ArticleRequest;
+import com.example.demo.dto.response.ArticleCommentResponse;
+import com.example.demo.dto.response.ArticleWithCommentsResponse;
 import com.example.demo.dto.security.BootPrincipal;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.PaginationService;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,9 +55,9 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map){
-        ArticleWithCommentDto article = articleService.getArticle(articleId);
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticleWithComments(articleId));
         map.addAttribute("article", article);
-        map.addAttribute("articleComments", article.getArticleCommentDtos());
+        map.addAttribute("articleComments", article.getArticleCommentResponses());
 
         return "articles/detail";
     }

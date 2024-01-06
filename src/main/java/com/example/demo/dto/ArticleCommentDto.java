@@ -12,17 +12,26 @@ public class ArticleCommentDto {
     private Long id;
     private Long articleId;
     private UserAccountDto userAccountDto;
+    private Long parentCommentId;
     private String content;
     private LocalDateTime createdAt;
     private String createdBy;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
 
-    public ArticleCommentDto(Long id, Long articleId, UserAccountDto userAccountDto, String content,
+    public ArticleCommentDto(Long articleId, UserAccountDto userAccountDto, String content) {
+        this.articleId = articleId;
+        this.userAccountDto = userAccountDto;
+        this.content = content;
+    }
+
+    public ArticleCommentDto(Long id, Long articleId, UserAccountDto userAccountDto, Long parentCommentId,
+                             String content,
                              LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         this.id = id;
         this.articleId = articleId;
         this.userAccountDto = userAccountDto;
+        this.parentCommentId = parentCommentId;
         this.content = content;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
@@ -30,10 +39,11 @@ public class ArticleCommentDto {
         this.modifiedBy = modifiedBy;
     }
 
-    public ArticleCommentDto(Long articleId, UserAccountDto userAccountDto, String content) {
+    public ArticleCommentDto(Long articleId, Long parentCommentId, UserAccountDto userAccountDto, String content) {
         this.id=null;
         this.articleId = articleId;
         this.userAccountDto = userAccountDto;
+        this.parentCommentId=parentCommentId;
         this.content = content;
         this.createdAt = null;
         this.createdBy = null;
@@ -46,6 +56,7 @@ public class ArticleCommentDto {
                 entity.getId(),
                 entity.getArticle().getId(),
                 UserAccountDto.from(entity.getUserAccount()),
+                entity.getParentCommentId(),
                 entity.getContent(),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),
