@@ -6,6 +6,7 @@ import com.example.demo.dto.ArticleDto;
 import com.example.demo.dto.ArticleWithCommentDto;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.repository.UserAccountRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,13 @@ public class ArticleService {
             case CONTENT -> articleRepository.findByContentContaining(keyword,pageable).map(ArticleDto::from);
             case CATEGORY -> articleRepository.findByCategory(keyword, pageable).map(ArticleDto::from);
         };
+    }
+
+    @Transactional(readOnly = true)
+    public ArticleWithCommentDto getArticleWithComments(Long articleId) {
+        return articleRepository.findById(articleId)
+                .map(ArticleWithCommentDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다"));
     }
 
     public ArticleWithCommentDto getArticle(Long articleId){

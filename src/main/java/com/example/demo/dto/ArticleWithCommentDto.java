@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 
 import com.example.demo.domain.Article;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,15 +20,17 @@ public class ArticleWithCommentDto {
     private String category;
     private UserAccountDto userAccountDto;
     private Set<ArticleCommentDto> articleCommentDtos;
+    private LocalDateTime createdAt;
 
     public ArticleWithCommentDto(Long id, String title, String content, String category, UserAccountDto userAccountDto,
-                                 Set<ArticleCommentDto> articleCommentDtos) {
+                                 Set<ArticleCommentDto> articleCommentDtos, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.category = category;
         this.userAccountDto = userAccountDto;
         this.articleCommentDtos = articleCommentDtos;
+        this.createdAt = createdAt;
     }
 
     public static ArticleWithCommentDto from(Article entity){
@@ -39,8 +42,8 @@ public class ArticleWithCommentDto {
                 UserAccountDto.from(entity.getUserAccount()),
                 entity.getArticleComments().stream()
                         .map(ArticleCommentDto::from)
-                        .collect(Collectors.toCollection(LinkedHashSet::new))
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
+                entity.getCreatedAt()
         );
     }
-
 }
