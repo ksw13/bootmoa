@@ -36,8 +36,8 @@ public class ArticleWithCommentsResponse {
     public static ArticleWithCommentsResponse from (ArticleWithCommentDto dto){
         return new ArticleWithCommentsResponse(
                 dto.getId(),
-                dto.getTitle(),
-                dto.getContent(),
+                xssFilter(dto.getTitle()),
+                xssFilter(dto.getContent()),
                 dto.getCreatedAt(),
                 dto.getUserAccountDto().getUserId(),
                 organizeChildComments(dto.getArticleCommentDtos())
@@ -65,6 +65,16 @@ public class ArticleWithCommentsResponse {
                                 .thenComparingLong(ArticleCommentResponse::getId)
                         )
                 ));
+    }
+
+    public static String xssFilter(String str) {
+        String result = "";
+
+        result = str;
+        result = result.replaceAll("<", "&lt;");
+        result = result.replaceAll(">", "&gt;");
+
+        return result;
     }
 
 }
